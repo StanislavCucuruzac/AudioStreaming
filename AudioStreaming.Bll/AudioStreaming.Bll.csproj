@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AudioStreaming.Common\AudioStreaming.Common.csproj" />
+    <ProjectReference Include="..\AudioStreaming.Dal\AudioStreaming.Dal.csproj" />
+    <ProjectReference Include="..\AudioStreaming.Domain\AudioStreaming.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

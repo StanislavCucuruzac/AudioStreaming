@@ -1,0 +1,66 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AudioStreaming.Domain", "AudioStreaming.Domain", "{7878EB5B-53B3-4A18-A718-FD5CC510DC3C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioStreaming.Domain", "AudioStreaming.Domain\AudioStreaming.Domain.csproj", "{1ACBAE74-5E2A-4770-9A7B-006029D40437}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AudioStreaming.Dal", "AudioStreaming.Dal", "{6008EEC7-4DD6-47C2-ABBF-DE0C69ED9945}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioStreaming.Dal", "AudioStreaming.Dal\AudioStreaming.Dal.csproj", "{CD6B7675-F76F-4F84-A5D4-46F749DB3856}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AudioStreaming.Common", "AudioStreaming.Common", "{F455B164-BE56-4FB6-9CBC-F6C10B975D05}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioStreaming.Common", "AudioStreaming.Common\AudioStreaming.Common.csproj", "{6510E959-D6EF-49CF-A201-008F33BE7595}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AudioStreaming.Bll", "AudioStreaming.Bll", "{B4EB4EFE-F9A3-433C-9334-03BE66B6388E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioStreaming.Bll", "AudioStreaming.Bll\AudioStreaming.Bll.csproj", "{B1309C55-0F42-4090-A4D6-A0EA98E4E812}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AudioStreaming.API", "AudioStreaming.API", "{20A0A946-B8C8-4F02-818D-BE780C02274D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioStreaming.API", "AudioStreaming.API\AudioStreaming.API.csproj", "{0AF5564D-F385-4506-B6E8-981ACE234F6A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1ACBAE74-5E2A-4770-9A7B-006029D40437}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ACBAE74-5E2A-4770-9A7B-006029D40437}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ACBAE74-5E2A-4770-9A7B-006029D40437}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ACBAE74-5E2A-4770-9A7B-006029D40437}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD6B7675-F76F-4F84-A5D4-46F749DB3856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD6B7675-F76F-4F84-A5D4-46F749DB3856}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD6B7675-F76F-4F84-A5D4-46F749DB3856}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD6B7675-F76F-4F84-A5D4-46F749DB3856}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6510E959-D6EF-49CF-A201-008F33BE7595}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6510E959-D6EF-49CF-A201-008F33BE7595}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6510E959-D6EF-49CF-A201-008F33BE7595}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6510E959-D6EF-49CF-A201-008F33BE7595}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1309C55-0F42-4090-A4D6-A0EA98E4E812}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1309C55-0F42-4090-A4D6-A0EA98E4E812}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1309C55-0F42-4090-A4D6-A0EA98E4E812}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1309C55-0F42-4090-A4D6-A0EA98E4E812}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AF5564D-F385-4506-B6E8-981ACE234F6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AF5564D-F385-4506-B6E8-981ACE234F6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AF5564D-F385-4506-B6E8-981ACE234F6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AF5564D-F385-4506-B6E8-981ACE234F6A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1ACBAE74-5E2A-4770-9A7B-006029D40437} = {7878EB5B-53B3-4A18-A718-FD5CC510DC3C}
+		{CD6B7675-F76F-4F84-A5D4-46F749DB3856} = {6008EEC7-4DD6-47C2-ABBF-DE0C69ED9945}
+		{6510E959-D6EF-49CF-A201-008F33BE7595} = {F455B164-BE56-4FB6-9CBC-F6C10B975D05}
+		{B1309C55-0F42-4090-A4D6-A0EA98E4E812} = {B4EB4EFE-F9A3-433C-9334-03BE66B6388E}
+		{0AF5564D-F385-4506-B6E8-981ACE234F6A} = {20A0A946-B8C8-4F02-818D-BE780C02274D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EDD56D72-5416-4636-A298-4E3465976E7D}
+	EndGlobalSection
+EndGlobal
