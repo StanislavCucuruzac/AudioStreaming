@@ -12,10 +12,10 @@ namespace AudioStreaming.Common.Dtos
         [Required]
         [StringLength(100, MinimumLength = 3)]
         public string Name { get; set; }
-        [Required]
+        
         [Range(1,99)]
         public float Duration { get; set; }
-        [Required]
+        
         public decimal Price { get; set; }
         [Required]
         public int ArtistId { get; set; }

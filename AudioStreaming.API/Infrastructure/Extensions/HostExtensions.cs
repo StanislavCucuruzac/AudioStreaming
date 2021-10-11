@@ -27,6 +27,8 @@ namespace AudioStreaming.API.Infrastructure.Extensions
                     context.Database.Migrate();
                                        
                     await UsersSeed.Seed(userManager);
+                    await ArtistSeed.Seed(context);
+                  
                 }
                 catch (Exception ex)
                 {

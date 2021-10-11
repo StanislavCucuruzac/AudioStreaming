@@ -13,8 +13,7 @@ namespace AudioStreaming.Bll.Profiles
     {
         public SongProfile()
         {
-            CreateMap<Song, SongDto>()
-                .ForMember(x => x.ArtistId, y => y.MapFrom(z => z.Artist.Id));
+            CreateMap<Song, SongDto>();
             CreateMap<SongForUpdateDto, Song>();
             CreateMap<Song, SongListDto>()
                 .ForMember(x => x.Artist, y => y.MapFrom(z => z.Artist.Name));

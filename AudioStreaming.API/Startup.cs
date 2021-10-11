@@ -3,13 +3,13 @@ using AudioStreaming.Bll.Interfaces;
 using AudioStreaming.Bll.Profiles;
 using AudioStreaming.Bll.Services;
 using AudioStreaming.Dal;
+using AudioStreaming.Dal.DataAcces;
 using AudioStreaming.Dal.Interfaces;
 using AudioStreaming.Dal.Repository;
+using AudioStreaming.Domain;
 using AudioStreaming.Domain.Auth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +18,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,46 +26,49 @@ namespace AudioStreaming.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
+
+            InitializeLocalStorage(false);
+
         }
 
         public IConfiguration Configuration { get; }
-
+        public IWebHostEnvironment Environment { get; }
+        public string LocalStoragePath { get; private set; }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //var contection = @"Data Source = DELL-PC\SQLEXPRESS; Initial Catalog = AudioStreaming;
-            //    Integrated Security = SSPI";
+            services.AddDataAccess(LocalStoragePath);
+
             services.AddDbContext<AudioStreamingDbContext>(optionBuilder =>
             {
-                optionBuilder.UseSqlServer(@"Data Source = DELL-PC\SQLEXPRESS; Initial Catalog = AudioStreamDb;
-                Integrated Security = SSPI");
+                optionBuilder.UseSqlServer(@"Data Source =Stas; Initial Catalog = AudioStreamDb;
+                Integrated Security = true");
                 optionBuilder.UseSqlServer(x => x.MigrationsAssembly("AudioStreaming.Dal"));
             });
-
-            //services.AddDbContext<AudioStreamingDbContext>(option => option.UseSqlServer(
-            //    Configuration.GetConnectionString("DefaultConnection"), m => m.MigrationsAssembly("AudioStreaming.Dal")));
-
-
+           
             services.AddAutoMapper(typeof(SongProfile));
             services.AddAutoMapper(typeof(ArtistProfile));
+            services.AddAutoMapper(typeof(PlaylistProfile));
 
-            services.AddIdentity<User, Role>(options =>
-            {
-                options.Password.RequiredLength = 8;
-            })
-            .AddEntityFrameworkStores<AudioStreamingDbContext>();
+            //services.AddIdentity<User, Role>(options =>
+            //{
+            //    options.Password.RequiredLength = 8;
+            //})
+            //.AddEntityFrameworkStores<AudioStreamingDbContext>();
 
-            var authOptions = services.ConfigureAuthOptions(Configuration);
-            services.AddJwAuthentication(authOptions);
+            //var authOptions = services.ConfigureAuthOptions(Configuration);
+            //services.AddJwAuthentication(authOptions);
+
             services.AddControllers();
 
             services.AddScoped<IRepository, EfCoreRepository>();
             services.AddScoped<ISongService, SongService>();
             services.AddScoped<IArtistService, ArtistService>();
-           // services.AddAutoMapper(typeof(BllAssemblyMarker));
+         
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -86,12 +90,21 @@ namespace AudioStreaming.API
 
             app.UseRouting();
 
-            app.UseAuthorization();
+           // app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+        }
+        private void InitializeLocalStorage(bool autoClear = true)
+        {
+            LocalStoragePath = Environment.ContentRootPath + "\\LocalStorage";
+
+            if (autoClear && Directory.Exists(LocalStoragePath))
+                Directory.Delete(LocalStoragePath, true);
+
+            Directory.CreateDirectory(LocalStoragePath);
         }
     }
 }

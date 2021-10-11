@@ -12,6 +12,7 @@ namespace AudioStreaming.Common.Dtos
         public string Name { get; set; }
         public float Duration { get; set; }
         public decimal Price { get; set; }
-        public int ArtistId { get; set; }
+        //public byte[] Data { get; set; }
+      //  public int ArtistId { get; set; }
     }
 }

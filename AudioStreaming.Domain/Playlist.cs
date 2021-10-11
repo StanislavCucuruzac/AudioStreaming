@@ -12,7 +12,7 @@ namespace AudioStreaming.Domain
         public string Name { get; set; }
         public int UserId { get; set; }
         public virtual User User { get; set; }
-
-        public virtual List<Song> Songs { get; set; }
+     
+        public ICollection<PlaylistSong> Songs { get; set; }
     }
 }

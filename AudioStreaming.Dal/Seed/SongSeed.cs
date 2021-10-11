@@ -8,13 +8,12 @@ namespace AudioStreaming.Dal.Seed
 {
     public class SongSeed
     {
-        //public static async Task Seed(AudioStreamingDbContext context)
-        //{
-        //    if (!context.Songs.Any())
-        //    {
-
-        //    }
-        //}
+        public static async Task Seed(AudioStreamingDbContext context)
+        {
+            //if (!context.Songs.Any())
+            //{
+            //}
+        }
 
     }
 

@@ -1,5 +1,7 @@
-﻿using AudioStreaming.Bll.Interfaces;
+﻿using AudioStreaming.Bll.Commands;
+using AudioStreaming.Bll.Interfaces;
 using AudioStreaming.Common.Dtos;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -34,34 +36,15 @@ namespace AudioStreaming.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddSong(SongForUpdateDto songForUpdateDto)
+        public async Task<IActionResult> UploadSong([FromBody] UploadSongCommand command)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var songDto = await _songService.AddSong(songForUpdateDto);
+            command.ArtistId = UserId;
 
-            return CreatedAtAction(nameof(GetSong), new { id = songDto.Id }, songDto);
+            var path = await Mediator.Send(command);
+
+            return CreatedAtAction(nameof(UploadSong), path);
         }
 
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateSong(int id, SongForUpdateDto dto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            await _songService.UpdateSong(id, dto);
-            return Ok();
-        }
-
-        [HttpDelete("{id}")]
-        public async Task DeleteSong(int id)
-        {
-            await _songService.DeleteSong(id);
-        }
     }
 }

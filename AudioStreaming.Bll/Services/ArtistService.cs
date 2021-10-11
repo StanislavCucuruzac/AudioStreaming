@@ -37,11 +37,12 @@ namespace AudioStreaming.Bll.Services
             await _repository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ArtistListDto>> GetAllArtists()
+        public async Task<IEnumerable<ArtistDto>> GetAllArtists()
         {
             var artistList = await _repository.GetAll<Artist>();
-            var artistDtoList = _mapper.Map<List<ArtistListDto>>(artistList);
+            var artistDtoList = _mapper.Map<List<ArtistDto>>(artistList);
             return artistDtoList;
+
         }
 
         public async Task<ArtistDto> GetArtist(int id)

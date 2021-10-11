@@ -14,5 +14,8 @@ namespace AudioStreaming.Domain
         public ContactInfo ContactInfo { get; set; }
         public int SongId { get;  set; }
         public virtual List<Song> Songs { get; set; }
+
+        public int ArtistPhotoId { get; set; }
+        public Photo ArtistPhoto { get; set; }
     }
 }

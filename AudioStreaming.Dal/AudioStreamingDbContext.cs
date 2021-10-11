@@ -19,27 +19,46 @@ namespace AudioStreaming.Dal
         {
         }
 
-       // public DbSet<Domain.User> Users { get; set; }
+        // public DbSet<Domain.User> Users { get; set; }
         public DbSet<Song> Songs { get; set; }
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<ContactInfo> ContactInfos { get; set; }
         public DbSet<Playlist> Playlists { get; set; }
+        public DbSet<PlaylistSong> PlaylistSongs { get; set; }
+        public DbSet<Photo> Photos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-          //  modelBuilder.ApplyConfiguration(new UserConfig());
+            //  modelBuilder.ApplyConfiguration(new UserConfig());
             modelBuilder.ApplyConfiguration(new ContactInfoConfig());
 
             ApplyIdentityMapConfiguration(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            modelBuilder.Entity<Artist>()
+            .HasOne(p => p.ArtistPhoto)
+            .WithOne(a => a.Artist)
+            .HasForeignKey<Photo>(b => b.ArtistId);
+
             //modelBuilder.Entity<Song>()
             //    .HasMany(x => x.Playlists)
             //    .WithMany(x => x.Songs)
             //    .UsingEntity(j => j.ToTable("PlaylistSong"));
+            modelBuilder.Entity<PlaylistSong>()
+       .HasKey(sp => new { sp.SongId, sp.PlaylistId });
+            modelBuilder.Entity<PlaylistSong>()
+                .HasOne(sp => sp.Song)
+                .WithMany(p => p.Playlists)
+                .HasForeignKey(sp => sp.SongId);
+            modelBuilder.Entity<PlaylistSong>()
+                .HasOne(sp => sp.Playlist)
+                .WithMany(s => s.Songs)
+                .HasForeignKey(sp => sp.PlaylistId);
+
 
             modelBuilder.Entity<Song>().Property(p => p.Price).HasColumnType("decimal(18,4)");
         }

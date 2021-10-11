@@ -10,7 +10,7 @@ namespace AudioStreaming.Bll.Interfaces
     public interface IArtistService
     {
         Task<ArtistDto> GetArtist(int id);
-        Task<IEnumerable<ArtistListDto>> GetAllArtists();
+        Task<IEnumerable<ArtistDto>> GetAllArtists();
         Task<ArtistDto> AddArtist(ArtistForUpdateDto artistForUpdateDto);
         Task UpdateArtist(int id, ArtistForUpdateDto artistForUpdateDto);
         Task DeleteArtist(int id);

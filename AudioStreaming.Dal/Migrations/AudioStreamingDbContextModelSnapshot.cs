@@ -26,6 +26,9 @@ namespace AudioStreaming.Dal.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ArtistPhotoId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
@@ -282,6 +285,27 @@ namespace AudioStreaming.Dal.Migrations
                     b.ToTable("Genres");
                 });
 
+            modelBuilder.Entity("AudioStreaming.Domain.Photo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ArtistId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArtistId")
+                        .IsUnique();
+
+                    b.ToTable("Photos");
+                });
+
             modelBuilder.Entity("AudioStreaming.Domain.Playlist", b =>
                 {
                     b.Property<int>("Id")
@@ -302,6 +326,21 @@ namespace AudioStreaming.Dal.Migrations
                     b.ToTable("Playlists");
                 });
 
+            modelBuilder.Entity("AudioStreaming.Domain.PlaylistSong", b =>
+                {
+                    b.Property<int>("SongId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlaylistId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SongId", "PlaylistId");
+
+                    b.HasIndex("PlaylistId");
+
+                    b.ToTable("PlaylistSongs");
+                });
+
             modelBuilder.Entity("AudioStreaming.Domain.Song", b =>
                 {
                     b.Property<int>("Id")
@@ -315,17 +354,14 @@ namespace AudioStreaming.Dal.Migrations
                     b.Property<float>("Duration")
                         .HasColumnType("real");
 
-                    b.Property<string>("FilePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("FileSize")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,4)");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -347,21 +383,6 @@ namespace AudioStreaming.Dal.Migrations
                     b.HasIndex("SongsId");
 
                     b.ToTable("GenreSong");
-                });
-
-            modelBuilder.Entity("PlaylistSong", b =>
-                {
-                    b.Property<int>("PlaylistsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SongsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PlaylistsId", "SongsId");
-
-                    b.HasIndex("SongsId");
-
-                    b.ToTable("PlaylistSong");
                 });
 
             modelBuilder.Entity("AudioStreaming.Domain.Auth.RoleClaim", b =>
@@ -426,6 +447,17 @@ namespace AudioStreaming.Dal.Migrations
                     b.Navigation("Artist");
                 });
 
+            modelBuilder.Entity("AudioStreaming.Domain.Photo", b =>
+                {
+                    b.HasOne("AudioStreaming.Domain.Artist", "Artist")
+                        .WithOne("ArtistPhoto")
+                        .HasForeignKey("AudioStreaming.Domain.Photo", "ArtistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Artist");
+                });
+
             modelBuilder.Entity("AudioStreaming.Domain.Playlist", b =>
                 {
                     b.HasOne("AudioStreaming.Domain.Auth.User", "User")
@@ -435,6 +467,25 @@ namespace AudioStreaming.Dal.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AudioStreaming.Domain.PlaylistSong", b =>
+                {
+                    b.HasOne("AudioStreaming.Domain.Playlist", "Playlist")
+                        .WithMany("Songs")
+                        .HasForeignKey("PlaylistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AudioStreaming.Domain.Song", "Song")
+                        .WithMany("Playlists")
+                        .HasForeignKey("SongId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Playlist");
+
+                    b.Navigation("Song");
                 });
 
             modelBuilder.Entity("AudioStreaming.Domain.Song", b =>
@@ -463,29 +514,26 @@ namespace AudioStreaming.Dal.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PlaylistSong", b =>
-                {
-                    b.HasOne("AudioStreaming.Domain.Playlist", null)
-                        .WithMany()
-                        .HasForeignKey("PlaylistsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AudioStreaming.Domain.Song", null)
-                        .WithMany()
-                        .HasForeignKey("SongsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("AudioStreaming.Domain.Artist", b =>
                 {
+                    b.Navigation("ArtistPhoto");
+
                     b.Navigation("ContactInfo");
 
                     b.Navigation("Songs");
                 });
 
             modelBuilder.Entity("AudioStreaming.Domain.Auth.User", b =>
+                {
+                    b.Navigation("Playlists");
+                });
+
+            modelBuilder.Entity("AudioStreaming.Domain.Playlist", b =>
+                {
+                    b.Navigation("Songs");
+                });
+
+            modelBuilder.Entity("AudioStreaming.Domain.Song", b =>
                 {
                     b.Navigation("Playlists");
                 });

@@ -8,14 +8,18 @@ namespace AudioStreaming.Domain
 {
     public class Song : BaseEntity
     {
+        public Song(int artistId, string slug)
+        {
+            ArtistId = artistId;
+            Slug = slug;
+        }
+
         public string Name { get; set; }
         public float Duration { get; set; }
         public decimal Price { get; set; }
-        //  public byte[] Data { get; set; }
-        public int? FileSize { get; set; }
-        public string FilePath { get; set; }
+        public string Slug { get; set; }
         public virtual List<Genre> Genres { get; set; }
-        public virtual List<Playlist> Playlists { get; set; }
+        public ICollection<PlaylistSong> Playlists { get; set; }
         public int ArtistId { get; set; }
         public virtual Artist Artist { get; set; }
     }

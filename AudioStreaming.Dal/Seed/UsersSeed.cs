@@ -20,7 +20,7 @@ namespace AudioStreaming.Dal.Seed
                     Email = "stanislav.cucuruzac11@gmail.com",
                 };
 
-                await userManager.CreateAsync(user, "MyPa$$word1");
+                await userManager.CreateAsync(user, "MyPassword100%$");
             }
         }
     }

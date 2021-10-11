@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace AudioStreaming.API.Controllers
 {
+    [ApiController]
     [Route("api/artists")]
     public class ArtistController : AppBaseController
     {
@@ -18,29 +19,33 @@ namespace AudioStreaming.API.Controllers
             _artistService = artistService;
         }
         [HttpGet]
-        public async Task<IEnumerable<ArtistListDto>> GetAllArtists()
+        public async Task<IActionResult> GetAllArtists()
         {
-            var artist = await _artistService.GetAllArtists();
-            return artist;
+            var artists = await _artistService.GetAllArtists();
+            return Ok(artists);
         }
 
 
         [HttpGet("{id}")]
-        public async Task<ArtistDto> GetArtist(int id)
+        public async Task<IActionResult> GetArtist(int id)
         {
             var artistDto = await _artistService.GetArtist(id);
-            return artistDto;
+            if (artistDto == null)
+            {
+                return NotFound($"Artist with {id} doesn't exist");
+            }
+             return Ok(artistDto);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddArtist(ArtistForUpdateDto artistForUpdateDto)
+        public async Task<IActionResult> AddArtist([FromBody] ArtistForUpdateDto artistForUpdateDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var artistDto = await _artistService.AddArtist(artistForUpdateDto);
-
+            if (artistDto == null)
+            {
+                return BadRequest("Artist has not been added!");
+            }
+            
             return CreatedAtAction(nameof(GetArtist), new { id = artistDto.Id }, artistDto);
         }
 

@@ -113,8 +113,7 @@ namespace AudioStreaming.Dal.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Duration = table.Column<float>(type: "real", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    FileSize = table.Column<int>(type: "int", nullable: true),
-                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Data = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     ArtistId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

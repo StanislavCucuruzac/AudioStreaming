@@ -17,11 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioStreaming.Common", "Au
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AudioStreaming.Bll", "AudioStreaming.Bll", "{B4EB4EFE-F9A3-433C-9334-03BE66B6388E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioStreaming.Bll", "AudioStreaming.Bll\AudioStreaming.Bll.csproj", "{B1309C55-0F42-4090-A4D6-A0EA98E4E812}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioStreaming.Bll", "AudioStreaming.Bll\AudioStreaming.Bll.csproj", "{B1309C55-0F42-4090-A4D6-A0EA98E4E812}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AudioStreaming.API", "AudioStreaming.API", "{20A0A946-B8C8-4F02-818D-BE780C02274D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioStreaming.API", "AudioStreaming.API\AudioStreaming.API.csproj", "{0AF5564D-F385-4506-B6E8-981ACE234F6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioStreaming.API", "AudioStreaming.API\AudioStreaming.API.csproj", "{0AF5564D-F385-4506-B6E8-981ACE234F6A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.UnitTests", "WebApi.UnitTests\WebApi.UnitTests.csproj", "{8B8ACBDA-D32E-4E81-A302-BA2C130D8741}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{0AF5564D-F385-4506-B6E8-981ACE234F6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AF5564D-F385-4506-B6E8-981ACE234F6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AF5564D-F385-4506-B6E8-981ACE234F6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B8ACBDA-D32E-4E81-A302-BA2C130D8741}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B8ACBDA-D32E-4E81-A302-BA2C130D8741}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B8ACBDA-D32E-4E81-A302-BA2C130D8741}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B8ACBDA-D32E-4E81-A302-BA2C130D8741}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
