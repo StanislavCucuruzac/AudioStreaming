@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace AudioStreaming.Bll.Queries.Photo
 {
-    public class GetPhotoBaseStringByPathQuery : IRequest<string>
+    public class GetPhotoBaseStringBySlugQuery : IRequest<string>
     {
         public string PhotoSlug { get; set; }
 
-        public GetPhotoBaseStringByPathQuery(string slug)
+        public GetPhotoBaseStringBySlugQuery(string slug)
         {
             PhotoSlug = slug;
         }
 
-        public class Handler : IRequestHandler<GetPhotoBaseStringByPathQuery, string>
+        public class Handler : IRequestHandler<GetPhotoBaseStringBySlugQuery, string>
         {
             private readonly IFileManager _fileManager;
 
@@ -27,7 +27,7 @@ namespace AudioStreaming.Bll.Queries.Photo
                 _fileManager = fileManager;
             }
 
-            public async Task<string> Handle(GetPhotoBaseStringByPathQuery request, CancellationToken cancellationToken)
+            public async Task<string> Handle(GetPhotoBaseStringBySlugQuery request, CancellationToken cancellationToken)
             {
                 var imageBytes = await _fileManager.ReadAllBytes(request.PhotoSlug + ".jpg");
 

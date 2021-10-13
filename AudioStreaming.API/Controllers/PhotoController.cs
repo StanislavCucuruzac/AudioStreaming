@@ -23,15 +23,15 @@ namespace AudioStreaming.API.Controllers
         }              
 
       
-        [HttpGet("{photoPath}")]
+        [HttpGet("{photoSlug}")]
         public async Task<IActionResult> GetPhotoBaseString(string photoPath)
         {
-            var result = await Mediator.Send(new GetPhotoBaseStringByPathQuery(photoPath));
+            var result = await Mediator.Send(new GetPhotoBaseStringBySlugQuery(photoPath));
 
             return Ok(result);
         }
 
-        [HttpGet("{photoPath}")]
+        [HttpGet("{photoSlug}")]
         public async Task<IActionResult> GetPhoto(string photoPath)
         {
             var result = await Mediator.Send(new GetPhotoSlugByQuery(photoPath));

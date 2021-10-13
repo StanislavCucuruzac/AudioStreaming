@@ -54,14 +54,14 @@ namespace AudioStreaming.API
             services.AddAutoMapper(typeof(ArtistProfile));
             services.AddAutoMapper(typeof(PlaylistProfile));
 
-            //services.AddIdentity<User, Role>(options =>
-            //{
-            //    options.Password.RequiredLength = 8;
-            //})
-            //.AddEntityFrameworkStores<AudioStreamingDbContext>();
+            services.AddIdentity<User, Role>(options =>
+            {
+                options.Password.RequiredLength = 8;
+            })
+            .AddEntityFrameworkStores<AudioStreamingDbContext>();
 
-            //var authOptions = services.ConfigureAuthOptions(Configuration);
-            //services.AddJwAuthentication(authOptions);
+            var authOptions = services.ConfigureAuthOptions(Configuration);
+            services.AddJwAuthentication(authOptions);
 
             services.AddControllers();
 
@@ -90,7 +90,7 @@ namespace AudioStreaming.API
 
             app.UseRouting();
 
-           // app.UseAuthorization();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

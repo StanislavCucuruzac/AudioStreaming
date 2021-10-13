@@ -13,6 +13,5 @@ namespace AudioStreaming.Common.Dtos.Artists
         public string Name { get; set; }
         public string Country { get; set; }
         public string Style { get; set; }       
-        //public int SongId { get; set; }
     }
 }

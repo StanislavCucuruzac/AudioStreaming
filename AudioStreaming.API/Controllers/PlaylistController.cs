@@ -1,4 +1,5 @@
-﻿using AudioStreaming.Bll.Interfaces;
+﻿using AudioStreaming.Bll.Commands;
+using AudioStreaming.Bll.Interfaces;
 using AudioStreaming.Common.Dtos.Playlists;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,21 @@ namespace AudioStreaming.API.Controllers
     public class PlaylistController : AppBaseController
     {
         private readonly IPlaylistService _service;
+        public PlaylistController(IPlaylistService artistService)
+        {
+            _service = artistService;
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AddPlaylist([FromBody] AddPlaylistCommand command)
+        {
+            command.PlaylistId = UserId;
+
+            await Mediator.Send(command);
+
+            return Ok();
+        }
 
         [HttpGet]
         public async Task<IEnumerable<PlaylistDto>> GetAllPlaylist()

@@ -14,12 +14,12 @@ namespace AudioStreaming.Bll.Commands
 {
     public class UploadSongCommand : IRequest<string>
     {
-        public int ArtistId { get; set; }
+        public int UserId { get; set; }
         public string SongBaseString { get; set; }
 
-        public UploadSongCommand(int artistId, string songBaseString)
+        public UploadSongCommand(int userId, string songBaseString)
         {
-            ArtistId = artistId;
+            UserId = userId;
             SongBaseString = songBaseString;
         }
 
@@ -37,15 +37,15 @@ namespace AudioStreaming.Bll.Commands
             {
                 byte[] songBytes = Convert.FromBase64String(request.SongBaseString);
 
-                var artist = await _context.Artists.FindAsync(new object[] { request.ArtistId }, cancellationToken);
-                if (artist is null)
+                var user = await _context.Users.FindAsync(new object[] { request.UserId }, cancellationToken);
+                if (user is null)
                 {
                     throw new NotFoundException(" Not found");
                 }
 
                 string slug = await Nanoid.Nanoid.GenerateAsync(size: 20);
 
-                await _context.Songs.AddAsync(new Song(request.ArtistId, slug), cancellationToken);
+                await _context.Songs.AddAsync(new Song(request.UserId, slug), cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
                 await _fileManager.WriteAllBytes(slug + ".mp3", songBytes);
 

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AudioStreaming.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class AppBaseController : ControllerBase
