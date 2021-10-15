@@ -3,8 +3,11 @@ using AudioStreaming.Dal;
 using AudioStreaming.Domain;
 using AudioStreaming.Domain.Interfaces;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -14,13 +17,16 @@ namespace AudioStreaming.Bll.Commands
 {
     public class UploadPhotoCommand : IRequest<string>
     {
-        public int ArtistId { get; set; }
-        public string ImageBaseString { get; set; }
+        [Required]
+        public IFormFile File { get; set; }
 
-        public UploadPhotoCommand(int artistId, string imageBaseString)
+        public byte[] GetFileData()
         {
-            ArtistId = artistId;
-            ImageBaseString = imageBaseString;
+            using (var memoryStream = new MemoryStream())
+            {
+                File.CopyTo(memoryStream);
+                return memoryStream.ToArray();
+            }
         }
 
         public class Handler : IRequestHandler<UploadPhotoCommand, string>
@@ -28,6 +34,7 @@ namespace AudioStreaming.Bll.Commands
             private readonly AudioStreamingDbContext _context;
             private readonly IFileManager _fileManager;
 
+            
             public Handler(AudioStreamingDbContext context, IFileManager fileManager)
             {
                 _context = context;
@@ -35,17 +42,11 @@ namespace AudioStreaming.Bll.Commands
             }
             public async Task<string> Handle(UploadPhotoCommand request, CancellationToken cancellationToken)
             {
-                byte[] imagesBytes = Convert.FromBase64String(request.ImageBaseString);
+                byte[] imagesBytes = request.GetFileData();
 
-                var artist = await _context.Artists.FindAsync(new object[] { request.ArtistId }, cancellationToken);
-                if(artist is null)
-                {
-                    throw new NotFoundException(" Not found");
-                }
-
+                
                 string slug = await Nanoid.Nanoid.GenerateAsync(size: 20);
-
-                await _context.Photos.AddAsync(new Photo(request.ArtistId, slug), cancellationToken);
+                              
                 await _context.SaveChangesAsync(cancellationToken);
                 await _fileManager.WriteAllBytes(slug + ".jpg", imagesBytes);
 

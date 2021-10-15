@@ -37,11 +37,24 @@ namespace AudioStreaming.API.Controllers
 
             if (checkingPasswordResult.Succeeded)
             {
+                var user = await _manager.FindByNameAsync(userForLoginDto.Username);
+                var userRoles = await _manager.GetRolesAsync(user);
+                var authClaims = new List<Claim>
+               {
+                   new Claim(ClaimTypes.NameIdentifier, user.UserName),
+
+};
+                foreach (var userRole in userRoles)
+                {
+                    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+                }
+            
                 var signinCredentials = new SigningCredentials(_authenticationOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256);
                 var jwtSecurityToken = new JwtSecurityToken(
+                   
                      issuer: _authenticationOptions.Issuer,
                      audience: _authenticationOptions.Audience,
-                     claims: new List<Claim>(),
+                     claims: authClaims,
                      expires: DateTime.Now.AddDays(30),
                      signingCredentials: signinCredentials
                 );

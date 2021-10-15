@@ -21,7 +21,18 @@ namespace AudioStreaming.Bll.Services
             _repository = repository;
             _mapper = mapper;
         }
+                          
 
+        public async Task<PlaylistDto> AddPlaylist(PlaylistForUpdateDto playlistFroUpdateDto)
+        {
+
+            var playlist = _mapper.Map<Playlist>(playlistFroUpdateDto);
+            _repository.Add(playlist);
+            await _repository.SaveChangesAsync();
+
+            var playlistDto = _mapper.Map<PlaylistDto>(playlist);
+            return playlistDto;
+        }
 
         public Task DeletePlaylist(int id)
         {

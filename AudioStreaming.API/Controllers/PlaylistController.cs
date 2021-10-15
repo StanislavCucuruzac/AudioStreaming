@@ -17,16 +17,18 @@ namespace AudioStreaming.API.Controllers
             _service = artistService;
         }
 
-
         [HttpPost]
-        public async Task<IActionResult> AddPlaylist([FromBody] AddPlaylistCommand command)
+        public async Task<IActionResult> CreatePlaylist([FromBody] PlaylistForUpdateDto playlistForUpdateDto)
         {
-            command.PlaylistId = UserId;
+            var playlistDto = await _service.AddPlaylist(playlistForUpdateDto);
+            if (playlistDto == null)
+            {
+                return BadRequest("Artist has not been added!");
+            }
 
-            await Mediator.Send(command);
-
-            return Ok();
+            return CreatedAtAction(nameof(GetById), new { id = playlistDto.Id }, playlistForUpdateDto);
         }
+            
 
         [HttpGet]
         public async Task<IEnumerable<PlaylistDto>> GetAllPlaylist()

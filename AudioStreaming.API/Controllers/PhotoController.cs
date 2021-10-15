@@ -11,17 +11,7 @@ namespace AudioStreaming.API.Controllers
 {
     public class PhotoController : AppBaseController
     {
-        [HttpGet("{artistId}")]
-        public async Task<IActionResult> GetPhoto(int? artistId = null)
-        {
-            if (artistId == null)
-                artistId = UserId;
-
-            var result = await Mediator.Send(new GetPhotoSlugByArtistIdQuery(artistId.Value));
-
-            return result == null ? NotFound() : Ok(result);
-        }              
-
+              
       
         [HttpGet("{photoSlug}")]
         public async Task<IActionResult> GetPhotoBaseString(string photoPath)
@@ -31,19 +21,12 @@ namespace AudioStreaming.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{photoSlug}")]
-        public async Task<IActionResult> GetPhoto(string photoPath)
-        {
-            var result = await Mediator.Send(new GetPhotoSlugByQuery(photoPath));
-
-            return File(result, "image/jpeg");
-        }
-
+      
       
         [HttpPost]
-        public async Task<IActionResult> UploadPhoto([FromBody] UploadPhotoCommand command)
+        public async Task<IActionResult> UploadPhoto([FromForm] UploadPhotoCommand command)
         {
-            command.ArtistId = UserId;
+          //  command.ArtistId = UserId;
 
             var path = await Mediator.Send(command);
 

@@ -36,10 +36,9 @@ namespace AudioStreaming.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadSong([FromBody] UploadSongCommand command)
+        public async Task<IActionResult> UploadSong([FromForm] UploadSongCommand command)
         {
-            command.UserId = UserId;
-
+           
             var path = await Mediator.Send(command);
 
             return CreatedAtAction(nameof(UploadSong), path);

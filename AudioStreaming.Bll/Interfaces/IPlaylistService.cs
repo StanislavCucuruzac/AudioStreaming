@@ -9,6 +9,7 @@ namespace AudioStreaming.Bll.Interfaces
 {
     public interface IPlaylistService
     {
+        Task<PlaylistDto> AddPlaylist(PlaylistForUpdateDto playlistFroUpdateDto);
         Task<IEnumerable<PlaylistDto>> GetAllPlaylists();
         Task<PlaylistDto> GetPlaylist(int id);
         Task DeletePlaylist(int id);

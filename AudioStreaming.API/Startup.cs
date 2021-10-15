@@ -1,4 +1,6 @@
+using AudioStreaming.API.Extensions;
 using AudioStreaming.API.Infrastructure.Extensions;
+using AudioStreaming.Bll;
 using AudioStreaming.Bll.Interfaces;
 using AudioStreaming.Bll.Profiles;
 using AudioStreaming.Bll.Services;
@@ -20,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace AudioStreaming.API
@@ -42,6 +45,7 @@ namespace AudioStreaming.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDataAccess(LocalStoragePath);
+            services.AddApplication();
 
             services.AddDbContext<AudioStreamingDbContext>(optionBuilder =>
             {
@@ -49,7 +53,10 @@ namespace AudioStreaming.API
                 Integrated Security = true");
                 optionBuilder.UseSqlServer(x => x.MigrationsAssembly("AudioStreaming.Dal"));
             });
-           
+            services.AddApiBehaviorOptions();
+
+
+
             services.AddAutoMapper(typeof(SongProfile));
             services.AddAutoMapper(typeof(ArtistProfile));
             services.AddAutoMapper(typeof(PlaylistProfile));
@@ -89,6 +96,7 @@ namespace AudioStreaming.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
