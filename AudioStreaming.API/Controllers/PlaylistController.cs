@@ -8,7 +8,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace AudioStreaming.API.Controllers
-{
+{  
+  //  [Route("api/playlists")]
     public class PlaylistController : AppBaseController
     {
         private readonly IPlaylistService _service;
@@ -31,12 +32,13 @@ namespace AudioStreaming.API.Controllers
             
 
         [HttpGet]
-        public async Task<IEnumerable<PlaylistDto>> GetAllPlaylist()
+        public async Task<IActionResult> GetAllPlaylist()
         {
             var playlist = await _service.GetAllPlaylists();
-            return playlist;
+            return Ok(playlist);
 
         }
+        
         [HttpGet("{id}")]
         public async Task<PlaylistDto> GetById(int id)
         {

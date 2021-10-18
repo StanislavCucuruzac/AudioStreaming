@@ -11,7 +11,7 @@ namespace AudioStreaming.API.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     public class AppBaseController : ControllerBase
     {
         private IMediator _mediator;

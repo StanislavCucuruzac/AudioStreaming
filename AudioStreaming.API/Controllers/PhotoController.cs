@@ -2,6 +2,7 @@
 using AudioStreaming.Bll.Commands.Delete;
 using AudioStreaming.Bll.Queries.Photo;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace AudioStreaming.API.Controllers
 {
+    //[Route("api/photos")]
     public class PhotoController : AppBaseController
-    {
-              
+    {             
       
-        [HttpGet("{photoSlug}")]
+        [HttpGet("getPhotoBaseString/{photoSlug}")]
         public async Task<IActionResult> GetPhotoBaseString(string photoPath)
         {
             var result = await Mediator.Send(new GetPhotoBaseStringBySlugQuery(photoPath));
@@ -21,8 +22,18 @@ namespace AudioStreaming.API.Controllers
             return Ok(result);
         }
 
-      
-      
+        [HttpGet("getPhoto/{photoSlug}")]
+        public async Task<IActionResult> GetPhoto(string photoSlug)
+        {
+            var result = await Mediator.Send(new GetPhotoBySlugQuery(photoSlug));
+            if(result == null)
+            {
+                return BadRequest();
+            }
+
+            return File(result, "image/jpeg");
+        }
+
         [HttpPost]
         public async Task<IActionResult> UploadPhoto([FromForm] UploadPhotoCommand command)
         {

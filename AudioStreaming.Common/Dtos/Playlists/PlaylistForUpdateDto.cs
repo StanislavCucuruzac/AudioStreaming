@@ -11,7 +11,7 @@ namespace AudioStreaming.Common.Dtos.Playlists
     public class PlaylistForUpdateDto
     {
         [Required]        
-        public string Name { get; set; }
+        public string Name { get; set; }       
         public int UserId { get; set; }
       //  public List<Song> Songs { get; set; }
     }

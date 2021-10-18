@@ -23,7 +23,11 @@ namespace AudioStreaming.Dal.DataAcces
             {
                 return await File.ReadAllBytesAsync(Combine(fileName));
             }
-            catch (Exception) { throw new Exception("Bad request"); }
+            catch(FileNotFoundException ex) 
+            {
+                return null;
+            }
+          
         }
         public async Task<bool> WriteAllBytes(string fileName, byte[] bytes)
         {

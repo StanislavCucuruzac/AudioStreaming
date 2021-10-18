@@ -18,5 +18,20 @@ namespace AudioStreaming.API.Extensions
 
             return services;
         }
+        public static IServiceCollection AddAudioStreamCors(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("default", policy =>
+                {
+                    policy.AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowAnyOrigin()
+                          .WithMethods("PATCH");
+                });
+            });
+
+            return services;
+        }
     }
 }

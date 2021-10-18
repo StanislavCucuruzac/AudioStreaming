@@ -18,6 +18,10 @@ namespace AudioStreaming.Bll.Commands
     public class UploadSongCommand : IRequest<string>
     {
         [Required]
+        public int ArtistId {get;set;}
+        [Required]
+        public string Name { get; set; }
+        [Required]
         public IFormFile File { get; set; }
 
         public byte[] GetFileData()
@@ -47,6 +51,7 @@ namespace AudioStreaming.Bll.Commands
 
                 string slug = await Nanoid.Nanoid.GenerateAsync(size: 20);
 
+                await _context.Songs.AddAsync(new Song(request.ArtistId, slug, request.Name), cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
                 await _fileManager.WriteAllBytes(slug + ".mp3", songBytes);
 

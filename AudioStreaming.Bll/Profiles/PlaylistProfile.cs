@@ -14,8 +14,11 @@ namespace AudioStreaming.Bll.Profiles
         public PlaylistProfile()
         {
             CreateMap<Playlist, PlaylistDto>();
+            CreateMap<PlaylistForUpdateDto, Playlist>();
+            CreateMap<Playlist, PlaylistListDto>();
 
-                     
+
+
         }
     }
 }

@@ -2,6 +2,7 @@
 using AudioStreaming.Common.Dtos.Account;
 using AudioStreaming.Domain.Auth;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;

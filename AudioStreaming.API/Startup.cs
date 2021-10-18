@@ -11,10 +11,12 @@ using AudioStreaming.Dal.Repository;
 using AudioStreaming.Domain;
 using AudioStreaming.Domain.Auth;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
@@ -44,6 +46,7 @@ namespace AudioStreaming.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
             services.AddDataAccess(LocalStoragePath);
             services.AddApplication();
 
@@ -69,18 +72,20 @@ namespace AudioStreaming.API
 
             var authOptions = services.ConfigureAuthOptions(Configuration);
             services.AddJwAuthentication(authOptions);
-
+          
             services.AddControllers();
 
             services.AddScoped<IRepository, EfCoreRepository>();
             services.AddScoped<ISongService, SongService>();
             services.AddScoped<IArtistService, ArtistService>();
+            services.AddScoped<IPlaylistService, PlaylistService>();
          
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AudioStreaming.API", Version = "v1" });
             });
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,13 +97,26 @@ namespace AudioStreaming.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AudioStreaming.API v1"));
             }
+            app.UseFileServer(new FileServerOptions
+            {
+                FileProvider = new PhysicalFileProvider
+                (
+                    Path.Combine(Directory.GetCurrentDirectory(), "LocalStorage")),
+                RequestPath = "/LocalStorage"
+
+            });
 
             app.UseHttpsRedirection();
 
-            app.UseRouting();
-            app.UseAuthentication();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
+            app.UseRouting();
+
+            app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCors(configurePolicy => configurePolicy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+           
 
             app.UseEndpoints(endpoints =>
             {

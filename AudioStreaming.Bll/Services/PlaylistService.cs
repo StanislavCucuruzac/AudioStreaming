@@ -39,10 +39,10 @@ namespace AudioStreaming.Bll.Services
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<PlaylistDto>> GetAllPlaylists()
+        public async Task<IEnumerable<PlaylistListDto>> GetAllPlaylists()
         {
             var playlists = await _repository.GetAll<Playlist>();
-            var playlistsDto = _mapper.Map<List<PlaylistDto>>(playlists);
+            var playlistsDto = _mapper.Map<List<PlaylistListDto>>(playlists);
             return playlistsDto;
         }
 

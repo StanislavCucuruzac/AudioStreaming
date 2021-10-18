@@ -8,10 +8,11 @@ namespace AudioStreaming.Domain
 {
     public class Song : BaseEntity
     {
-        public Song(int artistId, string slug)
+        public Song(int artistId, string slug, string name)
         {
             ArtistId = artistId;
             Slug = slug;
+            Name = name;
         }
 
         public string Name { get; set; }
