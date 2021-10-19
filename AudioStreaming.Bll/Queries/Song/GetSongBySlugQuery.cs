@@ -18,23 +18,5 @@ namespace AudioStreaming.Bll.Queries.Song
             SongSlug = songSlug;
         }
 
-        public class Handler : IRequestHandler<GetSongBySlugQuery, byte[]>
-        {
-            private readonly IFileManager _fileManager;
-
-            public Handler(IFileManager fileManager)
-            {
-                _fileManager = fileManager;
-            }
-
-            public async Task<byte[]> Handle(GetSongBySlugQuery request, CancellationToken cancellationToken)
-            {
-                var songBytes = await _fileManager.ReadAllBytes(request.SongSlug + ".jpg");
-
-                return songBytes;
-            }
-
-            
-        }
     }
 }

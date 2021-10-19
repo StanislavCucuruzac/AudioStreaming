@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AudioStreaming.API.Controllers
 {
-    //[Route("api/photos")]
+    
     public class PhotoController : AppBaseController
     {             
       

@@ -6,8 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace AudioStreaming.API.Controllers
-{  
-   // [Route("api/playlistSongs")]
+{     
     public class SongPlaylistController : AppBaseController
     {
      

@@ -18,23 +18,5 @@ namespace AudioStreaming.Bll.Queries.Photo
             PhotoSlug= photoPath;
         }
 
-        public class Handler : IRequestHandler<GetPhotoBySlugQuery, byte[]>
-        {
-            private readonly IFileManager _fileManager;
-
-            public Handler(IFileManager fileManager)
-            {
-                _fileManager = fileManager;
-            }
-
-            public async Task<byte[]> Handle(GetPhotoBySlugQuery request, CancellationToken cancellationToken)
-            {
-                var imageBytes = await _fileManager.ReadAllBytes(request.PhotoSlug + ".jpg");
-                
-                return imageBytes;
-            }
-
-        
-        }
     }
 }

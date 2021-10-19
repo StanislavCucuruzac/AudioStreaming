@@ -18,25 +18,6 @@ namespace AudioStreaming.Bll.Queries.Song
             SongSlug = songSlug;
         }
 
-        public class Handler : IRequestHandler<GetSongBaseStringBySlugQuery, string>
-        {
-            private readonly IFileManager _fileManager;
-
-            public Handler(IFileManager fileManager)
-            {
-                _fileManager = fileManager;
-            }
-
-            public async Task<string> Handle(GetSongBaseStringBySlugQuery request, CancellationToken cancellationToken)
-            {
-                var songBytes = await _fileManager.ReadAllBytes(request.SongSlug + ".jpg");
-
-                var songBaseString = Convert.ToBase64String(songBytes);
-
-                return songBaseString;
-            }
-
-
-        }
+       
     }
 }

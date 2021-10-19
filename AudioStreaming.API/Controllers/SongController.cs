@@ -10,8 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace AudioStreaming.API.Controllers
-{   
-   // [Route("api/playlists")]
+{      
     public class SongController : AppBaseController
     {
         private readonly ISongService _songService;
@@ -21,7 +20,7 @@ namespace AudioStreaming.API.Controllers
             _songService = songService;
         }
 
-        [HttpGet("/getSongs")]
+        [HttpGet("getSongs")]
         public async Task<IActionResult> GetSongs()
         {
 
@@ -31,15 +30,15 @@ namespace AudioStreaming.API.Controllers
             return result.Count == 0 ? NotFound() : Ok(result);
         }
 
-        [HttpGet("/getSongBaseString/{songSlug}")]
-        public async Task<IActionResult> GetSongBaseString(string songPath)
+        [HttpGet("getSongBaseString/{songSlug}")]
+        public async Task<IActionResult> GetSongBaseString(string songSlug)
         {
-            var result = await Mediator.Send(new GetSongBaseStringBySlugQuery(songPath));
+            var result = await Mediator.Send(new GetSongBaseStringBySlugQuery(songSlug));
 
             return Ok(result);
         }
 
-        [HttpGet("/getSong/{songSlug}")]
+        [HttpGet("getSong/{songSlug}")]
         public async Task<IActionResult> GetSong(string songSlug)
         {
             var result = await Mediator.Send(new GetSongBySlugQuery(songSlug));

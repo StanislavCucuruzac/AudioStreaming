@@ -33,30 +33,5 @@ namespace AudioStreaming.Bll.Commands
             }
         }
 
-        public class Handler : IRequestHandler<UploadSongCommand, string>
-        {
-            private readonly AudioStreamingDbContext _context;
-            private readonly IFileManager _fileManager;
-
-
-            public Handler(AudioStreamingDbContext context, IFileManager fileManager)
-            {
-                _context = context;
-                _fileManager = fileManager;
-            }
-            public async Task<string> Handle(UploadSongCommand request, CancellationToken cancellationToken)
-            {
-                byte[] songBytes = request.GetFileData();
-
-
-                string slug = await Nanoid.Nanoid.GenerateAsync(size: 20);
-
-                await _context.Songs.AddAsync(new Song(request.ArtistId, slug, request.Name), cancellationToken);
-                await _context.SaveChangesAsync(cancellationToken);
-                await _fileManager.WriteAllBytes(slug + ".mp3", songBytes);
-
-                return slug;
-            }
-        }
     }
 }

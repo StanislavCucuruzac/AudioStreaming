@@ -8,8 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace AudioStreaming.API.Controllers
-{  
-  //  [Route("api/playlists")]
+{    
     public class PlaylistController : AppBaseController
     {
         private readonly IPlaylistService _service;

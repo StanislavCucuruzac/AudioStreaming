@@ -26,36 +26,6 @@ namespace AudioStreaming.Bll.Queries.Song
             LoadFrom = loadFrom;
         }
 
-        public class Handler : IRequestHandler<GetSongsQuery, ICollection<SongModel>>
-        {
-            private readonly AudioStreamingDbContext _context;
-            private readonly IFileManager _fileManager;
-
-            public Handler(AudioStreamingDbContext context, IFileManager fileManager)
-            {
-                _context = context;
-                _fileManager = fileManager;
-            }
-
-            public async Task<ICollection<SongModel>> Handle(GetSongsQuery request, CancellationToken cancellationToken)
-            {
-                var songs = await _context.Songs
-                    .Where(prop =>
-                      prop.Id == request.PlaylistId)
-                    .Skip(request.LoadFrom)
-                    .Take(2)
-                    .Select(prop => new SongModel() { Id = prop.Id, Slug = prop.Slug })
-                    .ToListAsync();
-
-                for(int i = 0; i < songs.Count; i++){
-                    songs[i].Src = await AudioStreamContextHelper.TryGetSongBase64BySlug(songs[i].Slug, _fileManager);
-
-                }
-                return songs;
-            }
-
-
-        }
     }
 
 }

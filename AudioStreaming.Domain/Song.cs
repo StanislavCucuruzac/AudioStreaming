@@ -14,7 +14,7 @@ namespace AudioStreaming.Domain
             Slug = slug;
             Name = name;
         }
-
+        
         public string Name { get; set; }
         public float Duration { get; set; }
         public decimal Price { get; set; }

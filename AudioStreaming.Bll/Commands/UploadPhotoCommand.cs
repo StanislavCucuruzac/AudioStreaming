@@ -28,30 +28,6 @@ namespace AudioStreaming.Bll.Commands
                 return memoryStream.ToArray();
             }
         }
-
-        public class Handler : IRequestHandler<UploadPhotoCommand, string>
-        {
-            private readonly AudioStreamingDbContext _context;
-            private readonly IFileManager _fileManager;
-
-            
-            public Handler(AudioStreamingDbContext context, IFileManager fileManager)
-            {
-                _context = context;
-                _fileManager = fileManager;
-            }
-            public async Task<string> Handle(UploadPhotoCommand request, CancellationToken cancellationToken)
-            {
-                byte[] imagesBytes = request.GetFileData();
-
-                
-                string slug = await Nanoid.Nanoid.GenerateAsync(size: 20);
-                              
-                await _context.SaveChangesAsync(cancellationToken);
-                await _fileManager.WriteAllBytes(slug + ".jpg", imagesBytes);
-
-                return slug;
-            }
-        }
+              
     }
 }
