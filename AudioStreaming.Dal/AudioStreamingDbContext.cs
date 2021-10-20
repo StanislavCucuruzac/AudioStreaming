@@ -37,17 +37,16 @@ namespace AudioStreaming.Dal
 
             ApplyIdentityMapConfiguration(modelBuilder);
 
+            modelBuilder.ApplyConfiguration(new ArtistConfig());
+
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            modelBuilder.Entity<Artist>()
-            .HasOne(p => p.ArtistPhoto)
-            .WithOne(a => a.Artist)
-            .HasForeignKey<Photo>(b => b.ArtistId);
+            //modelBuilder.Entity<Artist>()
+            //.HasOne(p => p.ArtistPhoto)
+            //.WithOne(a => a.Artist)
+            //.HasForeignKey<Photo>(b => b.ArtistId);
 
-            //modelBuilder.Entity<Song>()
-            //    .HasMany(x => x.Playlists)
-            //    .WithMany(x => x.Songs)
-            //    .UsingEntity(j => j.ToTable("PlaylistSong"));
+
             modelBuilder.Entity<PlaylistSong>()
        .HasKey(sp => new { sp.SongId, sp.PlaylistId });
             modelBuilder.Entity<PlaylistSong>()

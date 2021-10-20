@@ -1,5 +1,6 @@
 using AudioStreaming.API.Extensions;
 using AudioStreaming.API.Infrastructure.Extensions;
+using AudioStreaming.API.Infrastructure.Middlewares;
 using AudioStreaming.Bll;
 using AudioStreaming.Bll.Interfaces;
 using AudioStreaming.Bll.Profiles;
@@ -52,7 +53,7 @@ namespace AudioStreaming.API
 
             services.AddDbContext<AudioStreamingDbContext>(optionBuilder =>
             {
-                optionBuilder.UseSqlServer(@"Data Source =Stas; Initial Catalog = AudioStreamDb;
+                optionBuilder.UseSqlServer(@"Data Source =Stas; Initial Catalog = AudioStreamDataBase;
                 Integrated Security = true");
                 optionBuilder.UseSqlServer(x => x.MigrationsAssembly("AudioStreaming.Dal"));
             });
@@ -96,6 +97,10 @@ namespace AudioStreaming.API
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AudioStreaming.API v1"));
+            }
+            else
+            {
+                app.UseMiddleware<ErrorHandlingMiddleware>();
             }
             app.UseFileServer(new FileServerOptions
             {

@@ -1,4 +1,5 @@
-﻿using AudioStreaming.Domain.Interfaces;
+﻿using AudioStreaming.Common.Exeptions;
+using AudioStreaming.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,7 +24,7 @@ namespace AudioStreaming.Dal.DataAcces
             {
                 return await File.ReadAllBytesAsync(Combine(fileName));
             }
-            catch(FileNotFoundException ex) 
+            catch(FileExeption ex) 
             {
                 return null;
             }
@@ -36,7 +37,7 @@ namespace AudioStreaming.Dal.DataAcces
                 await File.WriteAllBytesAsync(Combine(fileName), bytes);
                 return true;
             }
-            catch (Exception) { throw new Exception("Bad request"); }
+            catch (FileExeption ex) { throw new FileExeption(ex.Message);}
         }
 
         public async Task<bool> Delete(string fileName)
@@ -49,7 +50,7 @@ namespace AudioStreaming.Dal.DataAcces
                     return true;
                 });
             }
-            catch (Exception) { throw new Exception("Bad request"); }
+            catch (FileExeption ex) { throw new FileExeption(ex.Message);}
         }
 
         private string Combine(string path) => Path.Combine(RootPath, path);

@@ -13,8 +13,9 @@ namespace AudioStreaming.Domain
             ArtistId = artistId;
             Slug = slug;
             Name = name;
-        }
-        
+        }       
+        public int? CoverId { get; set; }
+        public Photo Cover { get; set; }
         public string Name { get; set; }
         public float Duration { get; set; }
         public decimal Price { get; set; }

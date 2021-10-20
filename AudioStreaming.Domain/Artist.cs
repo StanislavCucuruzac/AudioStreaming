@@ -11,11 +11,9 @@ namespace AudioStreaming.Domain
         public string Name { get; set; }
         public string Country { get; set; }
         public string Style { get; set; }
-        public ContactInfo ContactInfo { get; set; }
-        public int SongId { get;  set; }
-        public virtual List<Song> Songs { get; set; }
-
-        public int ArtistPhotoId { get; set; }
-        public Photo ArtistPhoto { get; set; }
+        public ContactInfo ContactInfo { get; set; }       
+        public virtual List<Song> Songs { get; set; }        
+        public int? AvatarId { get; set; }
+        public Photo Avatar { get; set; }
     }
 }

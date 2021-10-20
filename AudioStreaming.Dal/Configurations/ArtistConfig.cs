@@ -13,9 +13,7 @@ namespace AudioStreaming.Dal.Configurations
     {
         public void Configure(EntityTypeBuilder<Artist> builder)
         {
-            //builder
-            //  .HasIndex(x => x.Name)
-            //  .IsUnique();
+            builder.HasOne<Photo>(x=>x.Avatar).WithMany().HasForeignKey(x=>x.AvatarId).OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

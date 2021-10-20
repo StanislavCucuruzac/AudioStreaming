@@ -19,4 +19,8 @@
     <ProjectReference Include="..\AudioStreaming.Domain\AudioStreaming.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

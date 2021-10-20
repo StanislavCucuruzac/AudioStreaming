@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 namespace AudioStreaming.Domain
 {
     public class Photo : BaseEntity
-    {
-        public int ArtistId { get; set; }
-        public Artist Artist { get; set; }
-        public string Slug { get; set; }
-
+    {        
+        public string Slug { get; set; }      
+       
         public Photo()
         {
 
