@@ -1,4 +1,6 @@
-﻿using AudioStreaming.Dal.Interfaces;
+﻿using AudioStreaming.Common.PagedRequest;
+using AudioStreaming.Dal.Extensions;
+using AudioStreaming.Dal.Interfaces;
 using AudioStreaming.Domain;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -70,6 +72,11 @@ namespace AudioStreaming.Dal.Repository
                 entities = entities.Include(includeProperty);
             }
             return entities;
+        }
+        public async Task<PaginatedResult<TDto>> GetPagedData<TEntity, TDto>(PagedRequest pagedRequest) where TEntity : BaseEntity
+                                                                                                    where TDto : class
+        {
+            return await _audioStreamingDbContext.Set<TEntity>().CreatePaginatedResultAsync<TEntity, TDto>(pagedRequest, _mapper);
         }
 
     }

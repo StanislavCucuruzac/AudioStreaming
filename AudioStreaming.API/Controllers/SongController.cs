@@ -2,6 +2,7 @@
 using AudioStreaming.Bll.Interfaces;
 using AudioStreaming.Bll.Queries.Song;
 using AudioStreaming.Common.Dtos;
+using AudioStreaming.Common.PagedRequest;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,6 +19,13 @@ namespace AudioStreaming.API.Controllers
         public SongController(ISongService songService)
         {
             _songService = songService;
+        }
+
+        [HttpPost("paginated-search")]
+        public async Task<PaginatedResult<SongListDto>> GetPagedBooks(PagedRequest pagedRequest)
+        {
+            var pagedSongsDto = await _songService.GetPagedSongs(pagedRequest);
+            return pagedSongsDto;
         }
 
         [HttpGet("getSongs")]

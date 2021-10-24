@@ -1,5 +1,6 @@
 ﻿using AudioStreaming.Bll.Interfaces;
 using AudioStreaming.Common.Dtos;
+using AudioStreaming.Common.PagedRequest;
 using AudioStreaming.Dal.Interfaces;
 using AudioStreaming.Domain;
 using AutoMapper;
@@ -44,6 +45,12 @@ namespace AudioStreaming.Bll.Services
             var songList = await _repository.GetAll<Song>();
             var songDtoList = _mapper.Map<List<SongListDto>>(songList);
             return songDtoList;
+        }
+
+        public async Task<PaginatedResult<SongListDto>> GetPagedSongs(PagedRequest pagedRequest)
+        {
+            var pagedSongDto = await _repository.GetPagedData<Song, SongListDto>(pagedRequest);
+            return pagedSongDto;
         }
 
         public async Task<SongDto> GetSong(int id)

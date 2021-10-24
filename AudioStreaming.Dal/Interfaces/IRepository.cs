@@ -1,4 +1,5 @@
-﻿using AudioStreaming.Domain;
+﻿using AudioStreaming.Common.PagedRequest;
+using AudioStreaming.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace AudioStreaming.Dal.Interfaces
         Task SaveChangesAsync();
 
         Task<TEntity> Delete<TEntity>(int id) where TEntity : BaseEntity;
+        Task<PaginatedResult<TDto>> GetPagedData<TEntity, TDto>(PagedRequest pagedRequest) where TEntity : BaseEntity
+                                                                                             where TDto : class;
 
     }
 }
