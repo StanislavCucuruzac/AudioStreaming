@@ -13,7 +13,6 @@ namespace AudioStreaming.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddSong([FromBody] AddSongToPlaylistCommand command)
         {
-          //  command.PlaylistId = UserId;
 
             await Mediator.Send(command);
 
@@ -23,7 +22,6 @@ namespace AudioStreaming.API.Controllers
         [HttpDelete]
         public async Task<IActionResult> RemoveSong([FromBody] DeleteSongFromPlaylist command)
         {
-         //   command.PlaylistId = UserId;
 
             await Mediator.Send(command);
 

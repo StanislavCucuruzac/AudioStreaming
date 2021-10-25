@@ -1,5 +1,6 @@
 ﻿using AudioStreaming.Common.Exeptions;
 using AudioStreaming.Dal;
+using AudioStreaming.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -44,6 +45,7 @@ namespace AudioStreaming.Bll.Commands.Handlers
                 throw new BadRequestException();
             }
 
+            await _context.PlaylistSongs.AddAsync(new PlaylistSong(request.SongId, request.PlaylistId), cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;

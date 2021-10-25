@@ -13,5 +13,10 @@ namespace AudioStreaming.Domain
 
         public Song Song { get; set; }
         public Playlist Playlist { get; set; }
+        public PlaylistSong(int songId, int playlistId)
+        {
+            SongId = songId;
+            PlaylistId = playlistId;
+        }
     }
 }

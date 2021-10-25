@@ -27,16 +27,7 @@ namespace AudioStreaming.API.Controllers
             var pagedSongsDto = await _songService.GetPagedSongs(pagedRequest);
             return pagedSongsDto;
         }
-
-        [HttpGet("getSongs")]
-        public async Task<IActionResult> GetSongs()
-        {
-
-            int.TryParse(Request.Query["loadFrom"].FirstOrDefault(), out int loadFrom);
-            var result = await Mediator.Send(new GetSongsQuery(loadFrom));
-
-            return result.Count == 0 ? NotFound() : Ok(result);
-        }
+      
 
         [HttpGet("getSongBaseString/{songSlug}")]
         public async Task<IActionResult> GetSongBaseString(string songSlug)
