@@ -1,4 +1,5 @@
 ﻿using AudioStreaming.Bll.Commands;
+using AudioStreaming.Bll.Queries.Playlist;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,14 @@ namespace AudioStreaming.API.Controllers
             await Mediator.Send(command);
 
             return Ok();
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetSongsByPlaylist(int id)
+        {
+            var result = await Mediator.Send(new GetSongByPlaylistIdQuery(id));
+            return Ok(result);
+
+             
         }
     }
 }

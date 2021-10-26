@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AudioStreaming.Domain
 {
-    public class PlaylistSong
+    public class PlaylistSong 
     {
         public int SongId { get; set; }
         public int PlaylistId { get; set; }

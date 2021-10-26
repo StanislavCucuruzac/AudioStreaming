@@ -13,16 +13,9 @@ namespace AudioStreaming.API.Controllers
     
     public class PhotoController : AppBaseController
     {             
-      
-        [HttpGet("getPhotoBaseString/{photoSlug}")]
-        public async Task<IActionResult> GetPhotoBaseString(string photoPath)
-        {
-            var result = await Mediator.Send(new GetPhotoBaseStringBySlugQuery(photoPath));
+             
 
-            return Ok(result);
-        }
-
-        [HttpGet("getPhoto/{photoSlug}")]
+        [HttpGet("{slug}/content")]
         public async Task<IActionResult> GetPhoto(string photoSlug)
         {
             var result = await Mediator.Send(new GetPhotoBySlugQuery(photoSlug));

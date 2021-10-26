@@ -29,15 +29,7 @@ namespace AudioStreaming.API.Controllers
         }
       
 
-        [HttpGet("getSongBaseString/{songSlug}")]
-        public async Task<IActionResult> GetSongBaseString(string songSlug)
-        {
-            var result = await Mediator.Send(new GetSongBaseStringBySlugQuery(songSlug));
-
-            return Ok(result);
-        }
-
-        [HttpGet("getSong/{songSlug}")]
+        [HttpGet("{songSlug}/content")]
         public async Task<IActionResult> GetSong(string songSlug)
         {
             var result = await Mediator.Send(new GetSongBySlugQuery(songSlug));

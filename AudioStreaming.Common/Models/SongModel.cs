@@ -9,7 +9,8 @@ namespace AudioStreaming.Common.Models
     public class SongModel
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public string Slug { get; set; }
-        public string Src { get; set; }
+       // public string Src { get; set; }
     }
 }
