@@ -1,4 +1,3 @@
-using AudioStreaming.API.Extensions;
 using AudioStreaming.API.Infrastructure.Extensions;
 using AudioStreaming.API.Infrastructure.Middlewares;
 using AudioStreaming.Bll;
@@ -57,7 +56,6 @@ namespace AudioStreaming.API
                 Integrated Security = true");
                 optionBuilder.UseSqlServer(x => x.MigrationsAssembly("AudioStreaming.Dal"));
             });
-            services.AddApiBehaviorOptions();
 
 
 

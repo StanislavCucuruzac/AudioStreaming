@@ -3,6 +3,7 @@ using AudioStreaming.Common.Dtos.Account;
 using AudioStreaming.Domain.Auth;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,11 +21,12 @@ namespace AudioStreaming.API.Controllers
 			_userManager=manager;
 		}
 
+		[AllowAnonymous]
 		[HttpPost]
 		public async Task<IActionResult> RegisterUser(UserForRegisterDto dto)
 		{
 			var command = new RegisterUserCommand() { Dto = dto, UserManager = _userManager };
-			var registerResult = await Mediator.Send(command);
+			var registerResult = await Mediator.Send(command); 
 
 			if (registerResult.Succeeded)
 			{
