@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AudioStreaming.Common.Exeptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -32,8 +33,17 @@ namespace AudioStreaming.API.Infrastructure.Middlewares
 
                 switch (ex)
                 {
-                    case ValidationException _:
+                    case ValidationException:
                         context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        break;
+                    case FileExeption:
+                        context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        break;
+                    case BadHttpRequestException:
+                        context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        break;
+                    case NotFoundException:
+                        context.Response.StatusCode = (int)HttpStatusCode.NotFound;
                         break;
                     default:
                         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;

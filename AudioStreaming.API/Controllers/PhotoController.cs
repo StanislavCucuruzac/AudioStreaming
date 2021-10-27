@@ -30,7 +30,6 @@ namespace AudioStreaming.API.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadPhoto([FromForm] UploadPhotoCommand command)
         {
-          //  command.ArtistId = UserId;
 
             var path = await Mediator.Send(command);
 
